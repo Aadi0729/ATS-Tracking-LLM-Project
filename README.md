@@ -47,8 +47,6 @@ All results are generated using **Google Gemini 1.5 Flash** with prompt engineer
 
 Resume-ATS-Tracker/
 
-│
-
 ├── app.py # Main Streamlit app
 
 ├── .env # Environment variables (API key)
