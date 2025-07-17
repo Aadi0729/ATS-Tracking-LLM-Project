@@ -4,7 +4,8 @@ An AI-powered Resume Analyzer that simulates the behavior of an **HR professiona
 
 ## 🚀 Demo
 
-🔗 [Watch the demo video](https://drive.google.com/file/d/1m31JdKVJA07mUOZVrauORvq9XEO7bZzE/view?usp=drive_link)
+🔗 **[Click here to watch the demo](https://drive.google.com/file/d/1m31JdKVJA07mUOZVrauORvq9XEO7bZzE/view?usp=drive_link)**
+(*Available via Google Drive*)
 
 ---
 
