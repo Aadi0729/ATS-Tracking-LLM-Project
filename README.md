@@ -52,12 +52,12 @@ Resume-ATS-Tracker/
 ├── requirements.txt # Required Python libraries
 └── README.md # Project documentation
 
-🤝 Contributing
+## 🤝 Contributing
 Contributions are welcome!
 If you’d like to improve this project, feel free to fork the repo and submit a pull request.
 
-📬 Contact
-For demo video or collaboration inquiries:
+## 📬 Contact
+For collaboration inquiries:
 📧 [adityapateriya7986@gmail.com]
 🔗 LinkedIn: https://www.linkedin.com/in/aditya-pateriya7781/
 
