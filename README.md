@@ -46,6 +46,7 @@ All results are generated using **Google Gemini 1.5 Flash** with prompt engineer
 ## 📂 Project Structure
 
 Resume-ATS-Tracker/
+
 │
 
 ├── app.py # Main Streamlit app
