@@ -1,6 +1,3 @@
-services:
-  - type: web
-    name: ats-tracking-llm
-    env: python
-    buildCommand: "./build.sh"
-    startCommand: "python app.py"
+build:
+  environment:
+    python_version: 3.10
