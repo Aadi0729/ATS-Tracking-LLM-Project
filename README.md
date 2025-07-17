@@ -4,9 +4,7 @@ An AI-powered Resume Analyzer that simulates the behavior of an **HR professiona
 
 ## 🚀 Demo
 
-> 📌 **Currently not deployed online.**  
-> ✅ The project runs locally with a simulation video available on request.  
-> 📽️ Coming soon: Deployment on Streamlit Cloud or Render!
+🔗 [Watch the demo video](https://drive.google.com/file/d/1m31JdKVJA07mUOZVrauORvq9XEO7bZzE/view?usp=drive_link)
 
 ---
 
