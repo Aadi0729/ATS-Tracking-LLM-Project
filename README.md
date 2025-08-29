@@ -21,7 +21,7 @@ All results are generated using **Google Gemini 1.5 Flash** with prompt engineer
 
 ---
 
-## ✨ Features
+## ✨ Features:
 
 - 🧠 LLM integration with **Gemini API**
 - 📊 Resume matching percentage
