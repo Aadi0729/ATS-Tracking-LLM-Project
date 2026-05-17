@@ -5,20 +5,19 @@ import streamlit as st
 import os
 from PIL import Image
 import pdf2image
-import google.generativeai as genai
+from google import genai
 
 # load_dotenv()
 # genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 # Replace with this — works both locally and in production
-genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
+client = genai.Client(api_key=os.environ.get("GOOGLE_API_KEY"))
 
 # Function to interact with Gemini API
 def get_gemini_response(input_text, pdf_content, prompt):
-    model = genai.GenerativeModel("gemini-1.5-flash-latest")
+    model = genai.GenerativeModel("gemini-2.0-flash")  # ✅ already updated
     with st.spinner("Analyzing with Gemini... 🔍"):
         response = model.generate_content([input_text, pdf_content[0], prompt])
     return response.text
-
 
 # Convert uploaded PDF to image and encode
 def input_pdf_setup(uploaded_file):
