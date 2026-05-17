@@ -1,5 +1,6 @@
 import base64
 import io
+from wsgiref import types
 from dotenv import load_dotenv
 import streamlit as st
 import os
@@ -12,11 +13,25 @@ from google import genai
 # Replace with this — works both locally and in production
 client = genai.Client(api_key=os.environ.get("GOOGLE_API_KEY"))
 
-# Function to interact with Gemini API
+import base64
+
+client = genai.Client(api_key=os.environ.get("GOOGLE_API_KEY"))
+
 def get_gemini_response(input_text, pdf_content, prompt):
-    model = genai.GenerativeModel("gemini-2.0-flash")  # ✅ already updated
     with st.spinner("Analyzing with Gemini... 🔍"):
-        response = model.generate_content([input_text, pdf_content[0], prompt])
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=[
+                input_text,
+                types.Part.from_bytes(
+                    data=pdf_content[0]["data"].encode("utf-8") 
+                        if isinstance(pdf_content[0]["data"], str) 
+                        else pdf_content[0]["data"],
+                    mime_type="image/jpeg"
+                ),
+                prompt
+            ]
+        )
     return response.text
 
 # Convert uploaded PDF to image and encode
