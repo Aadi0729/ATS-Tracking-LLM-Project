@@ -14,7 +14,7 @@ genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
 
 # Function to interact with Gemini API
 def get_gemini_response(input_text, pdf_content, prompt):
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = genai.GenerativeModel("gemini-1.5-flash-latest")
     with st.spinner("Analyzing with Gemini... 🔍"):
         response = model.generate_content([input_text, pdf_content[0], prompt])
     return response.text
