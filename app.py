@@ -7,9 +7,10 @@ from PIL import Image
 import pdf2image
 import google.generativeai as genai
 
-load_dotenv()
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
+# load_dotenv()
+# genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+# Replace with this — works both locally and in production
+genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
 
 # Function to interact with Gemini API
 def get_gemini_response(input_text, pdf_content, prompt):
@@ -22,10 +23,12 @@ def get_gemini_response(input_text, pdf_content, prompt):
 # Convert uploaded PDF to image and encode
 def input_pdf_setup(uploaded_file):
     if uploaded_file is not None:
-        poppler_path = r"C:\Users\adity\Downloads\poppler-23.11.0\Library\bin"
-        images = pdf2image.convert_from_bytes(
-            uploaded_file.read(), poppler_path=poppler_path
-        )
+        # poppler_path = r"C:\Users\adity\Downloads\poppler-23.11.0\Library\bin"
+        # images = pdf2image.convert_from_bytes(
+        #     uploaded_file.read(), poppler_path=poppler_path
+        # )
+        # This works everywhere
+        images = pdf2image.convert_from_bytes(uploaded_file.read())
         first_page = images[0]
 
         img_byte_arr = io.BytesIO()
