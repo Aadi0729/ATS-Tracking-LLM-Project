@@ -1,47 +1,36 @@
 import base64
 import io
-from wsgiref import types
 from dotenv import load_dotenv
 import streamlit as st
 import os
 from PIL import Image
 import pdf2image
 from google import genai
+from google.genai import types as genai_types
 
-# load_dotenv()
-# genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-# Replace with this — works both locally and in production
+load_dotenv()  # loads .env for local dev only
+
+# Initialize Gemini client
 client = genai.Client(api_key=os.environ.get("GOOGLE_API_KEY"))
 
-import base64
 
-client = genai.Client(api_key=os.environ.get("GOOGLE_API_KEY"))
-
+# Function to interact with Gemini API
 def get_gemini_response(input_text, pdf_content, prompt):
     with st.spinner("Analyzing with Gemini... 🔍"):
+        image_part = genai_types.Part.from_bytes(
+            data=base64.b64decode(pdf_content[0]["data"]),
+            mime_type="image/jpeg"
+        )
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=[
-                input_text,
-                types.Part.from_bytes(
-                    data=pdf_content[0]["data"].encode("utf-8") 
-                        if isinstance(pdf_content[0]["data"], str) 
-                        else pdf_content[0]["data"],
-                    mime_type="image/jpeg"
-                ),
-                prompt
-            ]
+            model="gemini-2.5-flash",
+            contents=[input_text, image_part, prompt]
         )
     return response.text
+
 
 # Convert uploaded PDF to image and encode
 def input_pdf_setup(uploaded_file):
     if uploaded_file is not None:
-        # poppler_path = r"C:\Users\adity\Downloads\poppler-23.11.0\Library\bin"
-        # images = pdf2image.convert_from_bytes(
-        #     uploaded_file.read(), poppler_path=poppler_path
-        # )
-        # This works everywhere
         images = pdf2image.convert_from_bytes(uploaded_file.read())
         first_page = images[0]
 
@@ -62,10 +51,7 @@ st.set_page_config(page_title="ATS Resume Analyzer", layout="wide")
 st.markdown(
     """
     <style>
-    /* Hide Streamlit default menu and footer */
     #MainMenu, footer, header {visibility: hidden;}
-
-    /* Custom top navbar */
     .custom-navbar {
         background-color: #1f1f1f;
         padding: 10px 30px;
@@ -79,32 +65,23 @@ st.markdown(
         z-index: 9999;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-
-    /* Body padding to avoid overlap */
     .block-container {
-        padding-top: 5px !important;
+        padding-top: 2rem;
     }
     .main {
         background-color: #f5f5f5;
-    }
-    .block-container {
-        padding-top: 2rem;
     }
     .stTextArea textarea {
         font-size: 16px;
         font-family: monospace;
     }
-    
-    /* Sidebar background and text */
     [data-testid="stSidebar"] {
-        background-color: #2f2f2f; /* light black */
+        background-color: #2f2f2f;
         color: white;
     }
-
     [data-testid="stSidebar"] * {
         color: white !important;
     }
-    
     .stButton>button {
         width: 100%;
         font-size: 18px;
@@ -115,14 +92,6 @@ st.markdown(
     .stButton>button:hover {
         background-color: #45a049;
     }
-       /* Set all text to black */
-    html, body, h1, h2, h3, h4, h5, h6, p, span, div, label, strong, em, b, i {
-        color: black !important;
-    }
-    span, p {
-        color: black !important;
-    }
-    
     .custom-result-box {
         border: 2px solid #4CAF50;
         padding: 15px;
